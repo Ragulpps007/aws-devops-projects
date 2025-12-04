@@ -29,6 +29,42 @@ sudo apt install apache2 -y
 echo "<h1>Hello from AWS EC2!</h1>" | sudo tee /var/www/html/index.html
 sudo systemctl enable apache2
 sudo systemctl restart apache2
+```
 
-6️⃣ Test public access using EC2 Public IP
-7️⃣ Optional: S3 backup script for web files
+6️⃣ Test public access using EC2 Public IP  
+7️⃣ Optional: Create S3 backup script for web files  
+
+---
+
+## 🛡️ Security Configuration
+- SSH restricted to specific IP for secure access  
+- Strict use of Security Group rules  
+- IAM role-based access (no hard-coded keys)
+
+---
+
+## 🛠️ Troubleshooting
+| Issue | Root Cause | Solution |
+|------|------------|----------|
+| Website not loading | Port 80 not allowed in SG | Allow inbound port 80 |
+| SSH Access denied | Wrong PEM permissions | chmod 400 file.pem |
+| Apache down | Service failure | systemctl restart apache2 |
+
+---
+
+## 📊 Skills Demonstrated
+✔ Linux Server Administration  
+✔ Networking (VPC, Subnts, Routes, SGs)  
+✔ IAM and Access Management  
+✔ Troubleshooting in AWS  
+✔ Secure Web Hosting  
+✔ System Monitoring Basics  
+
+---
+
+## 🚀 Future Enhancements
+- Enable HTTPS (SSL/ACM Integration)
+- Add Auto Scaling & Load Balancer
+- Deploy using automated CI/CD pipeline
+
+
