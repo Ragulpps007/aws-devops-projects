@@ -1,40 +1,34 @@
-README.md
+# Secure Web Hosting on AWS EC2
 
-# EC2 Web Server Hosting
+This project demonstrates how to deploy and secure a Linux-based Apache web server using Amazon EC2. It highlights core cloud infrastructure setup, networking configuration, role-based access control, and troubleshooting.
 
-## Overview
-Host a simple static website on an Amazon EC2 instance using AWS Free Tier.
+---
 
-## Steps
-1. Launch EC2 instance (Amazon Linux 2, t2.micro).  
-2. Configure security group (SSH 22, HTTP 80).  
-3. Connect via SSH: `ssh -i mykey.pem ec2-user@<public-ip>`.  
-4. Install Apache:
-   ```bash
-   sudo yum update -y
-   sudo yum install httpd -y
-   sudo systemctl start httpd
-   sudo systemctl enable httpd
+## 🏗️ Cloud Architecture
+- Amazon EC2 (Ubuntu)
+- Custom VPC (Public Subnet)
+- Internet Gateway + Route Table
+- Security Groups for controlled access
+- Key Pair authentication for SSH
+- Amazon S3 (optional backup)
 
+---
 
-Deploy website:
+## 🔧 Deployment Steps
+1️⃣ Create a custom VPC and public subnet  
+2️⃣ Attach an Internet Gateway and update route table  
+3️⃣ Launch an EC2 instance with Ubuntu AMI  
+4️⃣ Configure Security Groups:
+   - Allow SSH: Port 22 (My IP only)
+   - Allow HTTP: Port 80 (Public)
+5️⃣ Install Apache Web Server:
 
-echo "<h1>Hello from AWS EC2!</h1>" | sudo tee /var/www/html/index.html
-
-
-Open http://<EC2-Public-IP> in browser.
-
-Outcome
-
-Static website hosted on EC2 instance.
-
-
-**setup.sh**
 ```bash
-#!/bin/bash
-# EC2 Web Server Setup
-sudo yum update -y
-sudo yum install httpd -y
-sudo systemctl start httpd
-sudo systemctl enable httpd
-echo "<h1>Hello from AWS EC2 - Automated!</h1>" | sudo tee /var/www/html/index.html
+sudo apt update
+sudo apt install apache2 -y
+echo "<h1>Hello from AWS EC2!</h1>" | sudo tee /var/www/html/index.html
+sudo systemctl enable apache2
+sudo systemctl restart apache2
+
+6️⃣ Test public access using EC2 Public IP
+7️⃣ Optional: S3 backup script for web files
